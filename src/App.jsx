@@ -3,7 +3,8 @@ import { Board } from './components/Board';
 import { initGame } from './store';
 
 function App() {
-  const [level, setLevel] = createSignal('easy');
+  const [level] = createSignal('easy');
+  // const [level] = createSignal('medium');
 
   initGame({ level: level() });
 
