@@ -7,7 +7,7 @@ const dev = false;
 function App() {
   const nColumn = 9;
   const total = nColumn * nColumn;
-  const nMine = 10;
+  const nMine = 5;
 
   const [status, setStatus] = createSignal('playing');
 
@@ -84,15 +84,18 @@ function App() {
 
     console.log('onFieldClick', { isRevealed: box.isRevealed, index });
 
-    if (box.isRevealed || status() === 'failed') {
+    if (box.isRevealed || status() === 'failed' || status() === 'success') {
       return;
     }
 
     revealBox(box);
 
     if (box.isMine) {
-      alert('失败');
       setStatus('failed');
+
+      setTimeout(() => {
+        alert('失败');
+      });
 
       // revealAllMines();
       setBoxes(
@@ -117,6 +120,14 @@ function App() {
     if (nNeighborhoodMines === 0) {
       expandZeros({ boxes, index });
     }
+
+    if (boxes.filter((box) => !box.isMine).every((box) => box.isRevealed)) {
+      setStatus('success');
+
+      setTimeout(() => {
+        alert('成功 🎉🎉🎉');
+      });
+    }
   }
 
   function markMineCount(box, nNeighborhoodMines) {
@@ -128,8 +139,8 @@ function App() {
 
   const colors = [
     '',
-    'text-green-900',
     'text-lime-400',
+    'text-green-900',
     'text-amber-400',
     'text-violet-900',
     'text-red-900',
@@ -151,7 +162,7 @@ function App() {
                 'hover:bg-gray-100/40':
                   status() !== 'failed' && !box().isRevealed,
               }}
-              class='font-bold w-8 h-8 rounded text-center border border-gray-200'
+              class='font-bold w-8 h-8 rounded text-center border border-slate-100'
               onClick={[onFieldClick, { index: idx }]}
             >
               {!dev && !box().isRevealed
