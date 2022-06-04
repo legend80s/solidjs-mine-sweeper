@@ -1,1 +1,0 @@
-# solidjs-mine-sweeper
