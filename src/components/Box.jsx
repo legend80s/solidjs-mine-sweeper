@@ -1,11 +1,14 @@
-import { createSignal } from 'solid-js';
 import { produce } from 'solid-js/store';
-const [status, setStatus] = createSignal('playing');
-import { boxes, nColumn as getColumnCount, setBoxes } from '../store';
+import {
+  boxes,
+  nColumn as getColumnCount,
+  setBoxes,
+  setStatus,
+  status,
+} from '../store';
 
 const dev = false;
 
-const finished = () => status() !== 'playing';
 const playing = () => status() === 'playing';
 
 const colors = [

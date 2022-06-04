@@ -3,6 +3,7 @@ import { createStore } from 'solid-js/store';
 
 export const [boxes, setBoxes] = createStore([]);
 export const [nColumn, setNColumn] = createSignal();
+export const [status, setStatus] = createSignal('playing');
 
 /**
  * @typedef {'easy' | 'medium' | 'hard'} ILevel
@@ -23,6 +24,8 @@ export function initGame({ level }) {
 
   const total = nColumn * nColumn;
 
+  console.log('initGame:', {level, nColumn, nMine});
+
   const initialFields = Array.from({ length: total }, (_, index) => ({
     id: index,
     isMine: index < nMine ? true : false,
@@ -31,10 +34,10 @@ export function initGame({ level }) {
   }));
 
   shuffle(initialFields);
-
   setBoxes(initialFields);
 
   setNColumn(nColumn);
+  setStatus('playing')
 }
 
 /**
