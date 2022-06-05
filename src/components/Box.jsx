@@ -1,4 +1,4 @@
-import { produce } from 'solid-js/store';
+import { produce } from "solid-js/store";
 import {
   boxes,
   getNeighborhoodIndices,
@@ -6,17 +6,17 @@ import {
   setBoxes,
   setStatus,
   status,
-} from '../store';
+} from "../store";
 
 const dev = false;
 
 const colors = [
-  '',
-  'text-lime-400',
-  'text-green-900',
-  'text-amber-400',
-  'text-violet-900',
-  'text-red-900',
+  "",
+  "text-lime-400",
+  "text-green-900",
+  "text-amber-400",
+  "text-violet-900",
+  "text-red-900",
 ];
 
 /**
@@ -25,22 +25,22 @@ const colors = [
 export function Box({ box, index }) {
   const genDynamicClass = () => ({
     [`${colors[box().nNeighborhoodMines]}`]: true,
-    'cursor-default': !playing() || box().isRevealed,
-    'bg-gray-500/20': !box().isRevealed,
-    'hover:bg-gray-100/40': playing() && !box().isRevealed,
+    "cursor-default": !playing() || box().isRevealed,
+    "bg-gray-500/20": !box().isRevealed,
+    "hover:bg-gray-100/40": playing() && !box().isRevealed,
   });
 
   return (
     <button
       classList={genDynamicClass()}
-      class='font-bold w-8 h-8 rounded text-center border border-slate-100'
+      class="font-bold w-8 h-8 rounded text-center border border-slate-100"
       onClick={[onFieldClick, { index }]}
     >
       {!dev && !box().isRevealed
-        ? ''
+        ? ""
         : box().isMine
-        ? '💥'
-        : box().nNeighborhoodMines || ''}
+        ? "💥"
+        : box().nNeighborhoodMines || ""}
     </button>
   );
 }
@@ -104,10 +104,10 @@ function onFieldClick({ index }) {
   revealBox(box);
 
   if (box.isMine) {
-    setStatus('failed');
+    setStatus("failed");
 
     setTimeout(() => {
-      alert('You Lost 🤕❗️❗️❗️');
+      alert("You Lost 🤕❗️❗️❗️");
     });
 
     // revealAllMines();
@@ -131,10 +131,10 @@ function onFieldClick({ index }) {
   }
 
   if (boxes.filter((box) => !box.isMine).every((box) => box.isRevealed)) {
-    setStatus('won');
+    setStatus("won");
 
     setTimeout(() => {
-      alert('Congratulations You Win 🎉🎉🎉.');
+      alert("Congratulations! You Win 🎉🎉🎉.");
     });
   }
 }

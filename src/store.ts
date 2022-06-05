@@ -2,17 +2,30 @@ import { createSignal } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { getItem, setItem } from './helper/storage';
 
-const LAST_LEVEL = getItem('level') || 'easy';
+export const enum LevelEnum {
+  EASY = 'easy',
+  MEDIUM = 'medium',
+  HARD = 'hard',
+}
+
+interface IBox {
+  id: number;
+  isMine: boolean;
+  nNeighborhoodMines: number;
+  isRevealed: boolean;
+}
+
+const LAST_LEVEL = getItem('level') || LevelEnum.EASY;
 
 // console.log('LAST_LEVEL:', LAST_LEVEL);
 
-export const [boxes, setBoxes] = createStore([]);
-export const [nColumn, setNColumn] = createSignal();
+export const [boxes, setBoxes] = createStore<IBox[]>([]);
+export const [nColumn, setNColumn] = createSignal<number>();
 export const [status, setStatus] = createSignal('playing');
 
 const [getLevel, setLevel] = createSignal(LAST_LEVEL);
 
-export function isValidLevel(lvl) {
+export function isValidLevel(lvl: LevelEnum) {
   return ['easy', 'medium', 'hard'].includes(lvl);
 }
 
@@ -28,15 +41,10 @@ export const storeLevel = (lvl) => {
 
 export const playing = () => status() === 'playing';
 
-/**
- * @typedef {'easy' | 'medium' | 'hard'} ILevel
- */
-
 export function initGame() {
   const level = getLevel();
 
-  /** @type {Record<ILevel, { nColumn: number; nMine: number; }>} */
-  const config = {
+  const config: Record<LevelEnum, { nColumn: number; nMine: number; }> = {
     easy: { nColumn: 9, nMine: 9 },
     medium: { nColumn: 12, nMine: 20 },
     hard: { nColumn: 18, nMine: 80 },
@@ -48,7 +56,7 @@ export function initGame() {
 
   console.log('initGame:', {level, nColumn, nMine});
 
-  const initialFields = Array.from({ length: total }, (_, index) => ({
+  const initialFields: IBox[] = Array.from({ length: total }, (_, index) => ({
     id: index,
     isMine: index < nMine ? true : false,
     nNeighborhoodMines: 0,
@@ -62,19 +70,15 @@ export function initGame() {
   setStatus('playing')
 }
 
-/**
- *
- * @param {any[]} arr
- */
-function shuffle(arr) {
+function shuffle(arr: any[]) {
   return arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
 }
 
 /**
- * @param {{ index: number }} index
- * @returns {number[]}
+ * @param index
+ * @returns
  */
-export function getNeighborhoodIndices({ index }) {
+export function getNeighborhoodIndices({ index }: { index: number; }): number[] {
   const columnCount = nColumn();
   const total = columnCount ** 2;
 
