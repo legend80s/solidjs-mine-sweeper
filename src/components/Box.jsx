@@ -27,7 +27,7 @@ export function Box({ box, index }) {
       [`${colors[box().nNeighborhoodMines]}`]: true,
       "cursor-default": !playing() || box().isRevealed,
       "border-slate-100": box().isRevealed,
-      "bg-gray-500/20 border-slate-400/50": !box().isRevealed,
+      "bg-gray-500/20 border-slate-400/20": !box().isRevealed,
       "hover:bg-gray-100/40": playing() && !box().isRevealed,
     };
   };
