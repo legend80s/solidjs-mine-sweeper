@@ -1,4 +1,6 @@
-# solid.js-mine-sweeper
+# mine-sweeper
+
+❤️ Powered by **Solid.js**.
 
 ## Usage
 
