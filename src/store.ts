@@ -23,7 +23,7 @@ export const [boxes, setBoxes] = createStore<IBox[]>([]);
 export const [nColumn, setNColumn] = createSignal<number>();
 export const [status, setStatus] = createSignal('playing');
 
-const [getLevel, setLevel] = createSignal(LAST_LEVEL);
+export const [getLevel, setLevel] = createSignal<LevelEnum>(LAST_LEVEL);
 
 export function isValidLevel(lvl: LevelEnum) {
   return ['easy', 'medium', 'hard'].includes(lvl);
@@ -47,7 +47,7 @@ export function initGame() {
   const config: Record<LevelEnum, { nColumn: number; nMine: number; }> = {
     easy: { nColumn: 9, nMine: 9 },
     medium: { nColumn: 12, nMine: 20 },
-    hard: { nColumn: 18, nMine: 80 },
+    hard: { nColumn: 15, nMine: 80 },
   };
 
   const { nColumn, nMine } = config[level];
