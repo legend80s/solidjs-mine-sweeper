@@ -1,9 +1,30 @@
-import { createSignal } from 'solid-js';
+import { createSignal, createMemo } from 'solid-js';
 import { createStore } from 'solid-js/store';
+import { getItem, setItem } from './helper/storage';
+
+const LAST_LEVEL = getItem('level') || 'easy';
+
+// console.log('LAST_LEVEL:', LAST_LEVEL);
 
 export const [boxes, setBoxes] = createStore([]);
 export const [nColumn, setNColumn] = createSignal();
 export const [status, setStatus] = createSignal('playing');
+
+const [getLevel, setLevel] = createSignal(LAST_LEVEL);
+
+export function isValidLevel(lvl) {
+  return ['easy', 'medium', 'hard'].includes(lvl);
+}
+
+export const storeLevel = (lvl) => {
+  if (!isValidLevel(lvl)) {
+    return;
+  }
+
+  setLevel(lvl);
+
+  setItem('level', lvl)
+}
 
 export const playing = () => status() === 'playing';
 
@@ -11,10 +32,9 @@ export const playing = () => status() === 'playing';
  * @typedef {'easy' | 'medium' | 'hard'} ILevel
  */
 
-/**
- * @param {{ level: ILevel }} param0
- */
-export function initGame({ level }) {
+export function initGame() {
+  const level = getLevel();
+
   /** @type {Record<ILevel, { nColumn: number; nMine: number; }>} */
   const config = {
     easy: { nColumn: 9, nMine: 9 },
