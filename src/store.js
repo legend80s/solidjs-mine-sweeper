@@ -1,4 +1,4 @@
-import { createSignal, createMemo } from 'solid-js';
+import { createSignal } from 'solid-js';
 import { createStore } from 'solid-js/store';
 import { getItem, setItem } from './helper/storage';
 

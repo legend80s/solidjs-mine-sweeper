@@ -4,6 +4,7 @@
     "node_modules",
   ],
   "compilerOptions": {
+    "moduleResolution": "Node",
     "jsx": "preserve",
     "allowJs": true,
     "checkJs": true,
