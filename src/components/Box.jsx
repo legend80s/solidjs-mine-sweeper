@@ -22,17 +22,20 @@ const colors = [
  * @param {{ box: typeof boxes[0]; index: number; }} param0
  */
 export function Box({ box, index }) {
-  const genDynamicClass = () => ({
-    [`${colors[box().nNeighborhoodMines]}`]: true,
-    "cursor-default": !playing() || box().isRevealed,
-    "bg-gray-500/20": !box().isRevealed,
-    "hover:bg-gray-100/40": playing() && !box().isRevealed,
-  });
+  const genDynamicClass = () => {
+    return {
+      [`${colors[box().nNeighborhoodMines]}`]: true,
+      "cursor-default": !playing() || box().isRevealed,
+      "border-slate-100": box().isRevealed,
+      "bg-gray-500/20 border-slate-400/50": !box().isRevealed,
+      "hover:bg-gray-100/40": playing() && !box().isRevealed,
+    };
+  };
 
   return (
     <button
       classList={genDynamicClass()}
-      class="font-mono w-8 h-8 rounded text-center border border-slate-400/50"
+      class="font-mono w-8 h-8 rounded text-center border"
       onClick={[onFieldClick, { index }]}
     >
       {!dev && !box().isRevealed
