@@ -5,7 +5,6 @@ import {
   playing,
   setBoxes,
   setStatus,
-  status,
 } from "../store";
 
 const dev = false;
@@ -33,7 +32,7 @@ export function Box({ box, index }) {
   return (
     <button
       classList={genDynamicClass()}
-      class="font-bold w-8 h-8 rounded text-center border border-slate-100"
+      class="font-mono w-8 h-8 rounded text-center border border-slate-400/50"
       onClick={[onFieldClick, { index }]}
     >
       {!dev && !box().isRevealed
