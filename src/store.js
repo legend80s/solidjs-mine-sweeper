@@ -70,19 +70,11 @@ function shuffle(arr) {
   return arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
 }
 
-const cache = {}
-
 /**
  * @param {{ index: number }} index
  * @returns {number[]}
  */
 export function getNeighborhoodIndices({ index }) {
-  if (cache[index]) {
-    // console.log('index', index, 'hit');
-
-    return cache[index];
-  }
-
   const columnCount = nColumn();
   const total = columnCount ** 2;
 
@@ -116,5 +108,5 @@ export function getNeighborhoodIndices({ index }) {
 
   // console.log('index', index, 'neighborhoodFields:', neighborhoodFields, 'total', total);
 
-  return cache[index] = neighborhoodFields;
+  return neighborhoodFields;
 }

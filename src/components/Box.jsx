@@ -52,19 +52,12 @@ function expandZeros({ boxes, index }) {
   // console.log('expandZeros index:', index);
   const box = boxes[index];
 
-  // if (boxes[index].isRevealed) {
-  //   return;
-  // }
-
   !box.isRevealed && revealBox(box);
 
   getNeighborhoodIndices({ index }).forEach((neighborhoodIndex, idx) => {
     const box = boxes[neighborhoodIndex];
-    // console.log('neighborhoodIndex:', neighborhoodIndex);
 
     if (box.isRevealed) {
-      // console.log(neighborhoodIndex, 'isRevealed');
-
       return;
     }
 
