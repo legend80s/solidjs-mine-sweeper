@@ -5,6 +5,8 @@ export const [boxes, setBoxes] = createStore([]);
 export const [nColumn, setNColumn] = createSignal();
 export const [status, setStatus] = createSignal('playing');
 
+export const playing = () => status() === 'playing';
+
 /**
  * @typedef {'easy' | 'medium' | 'hard'} ILevel
  */

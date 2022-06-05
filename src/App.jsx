@@ -4,7 +4,6 @@ import { initGame } from './store';
 
 function App() {
   const [level] = createSignal('easy');
-  // const [level] = createSignal('medium');
 
   initGame({ level: level() });
 

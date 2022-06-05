@@ -2,14 +2,13 @@ import { produce } from 'solid-js/store';
 import {
   boxes,
   getNeighborhoodIndices,
+  playing,
   setBoxes,
   setStatus,
   status,
 } from '../store';
 
 const dev = false;
-
-const playing = () => status() === 'playing';
 
 const colors = [
   '',
@@ -24,14 +23,16 @@ const colors = [
  * @param {{ box: typeof boxes[0]; index: number; }} param0
  */
 export function Box({ box, index }) {
+  const genDynamicClass = () => ({
+    [`${colors[box().nNeighborhoodMines]}`]: true,
+    'cursor-default': !playing() || box().isRevealed,
+    'bg-gray-500/20': !box().isRevealed,
+    'hover:bg-gray-100/40': playing() && !box().isRevealed,
+  });
+
   return (
     <button
-      classList={{
-        [`${colors[box().nNeighborhoodMines]}`]: true,
-        'cursor-default': status() === 'failed' || box().isRevealed,
-        'bg-gray-500/20': !box().isRevealed,
-        'hover:bg-gray-100/40': playing() && !box().isRevealed,
-      }}
+      classList={genDynamicClass()}
       class='font-bold w-8 h-8 rounded text-center border border-slate-100'
       onClick={[onFieldClick, { index }]}
     >
@@ -103,7 +104,7 @@ function onFieldClick({ index }) {
 
   // console.log('onFieldClick', { isRevealed: box.isRevealed, index });
 
-  if (box.isRevealed || status() === 'failed' || status() === 'success') {
+  if (box.isRevealed || !playing()) {
     return;
   }
 
@@ -137,7 +138,7 @@ function onFieldClick({ index }) {
   }
 
   if (boxes.filter((box) => !box.isMine).every((box) => box.isRevealed)) {
-    setStatus('success');
+    setStatus('won');
 
     setTimeout(() => {
       alert('成功 🎉🎉🎉');
