@@ -4,6 +4,7 @@
     "node_modules",
   ],
   "compilerOptions": {
+    "jsx": "preserve",
     "allowJs": true,
     "checkJs": true,
     "lib": ["esnext", "dom", "dom.iterable"],

@@ -46,7 +46,7 @@ export function Box({ box, index }) {
 }
 
 /**
- * @param {{boxes: typeof boxes; number: index }} box
+ * @param {{boxes: typeof boxes; index: number }} box
  */
 function expandZeros({ boxes, index }) {
   // console.log('expandZeros index:', index);
@@ -107,7 +107,7 @@ function onFieldClick({ index }) {
     setStatus('failed');
 
     setTimeout(() => {
-      alert('失败');
+      alert('You Lost 🤕❗️❗️❗️');
     });
 
     // revealAllMines();
@@ -134,7 +134,7 @@ function onFieldClick({ index }) {
     setStatus('won');
 
     setTimeout(() => {
-      alert('成功 🎉🎉🎉');
+      alert('Congratulations You Win 🎉🎉🎉.');
     });
   }
 }
