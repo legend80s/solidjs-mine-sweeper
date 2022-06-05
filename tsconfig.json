@@ -1,0 +1,12 @@
+{
+  "exclude": [
+    ".git",
+    "node_modules",
+  ],
+  "compilerOptions": {
+    "allowJs": true,
+    "checkJs": true,
+    "lib": ["esnext", "dom", "dom.iterable"],
+    "target": "esnext"
+  }
+}
