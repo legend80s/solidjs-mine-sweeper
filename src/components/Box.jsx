@@ -57,7 +57,7 @@ function expandZeros({ boxes, index }) {
 
   !box.isRevealed && revealBox(box);
 
-  getNeighborhoodIndices(boxes, index).forEach((neighborhoodIndex, idx) => {
+  getNeighborhoodIndices({ index }).forEach((neighborhoodIndex, idx) => {
     const box = boxes[neighborhoodIndex];
     // console.log('neighborhoodIndex:', neighborhoodIndex);
 
@@ -167,22 +167,21 @@ function calculateNeighborhoodMines(fields, idx) {
  * @returns {typeof boxes}
  */
 function getNeighborhoodFields(fields, idx) {
-  return getNeighborhoodIndices(boxes, idx).map((index) => {
+  return getNeighborhoodIndices({ index: idx }).map((index) => {
     return fields[index];
   });
 }
 /**
  *
- * @param {typeof boxes} fields
- * @param {number} idx
+ * @param {{ index: number }} index
  * @returns {number[]}
  */
-function getNeighborhoodIndices(fields, idx) {
+function getNeighborhoodIndices({ index }) {
   const nColumn = getColumnCount();
+  const total = nColumn ** nColumn;
 
-  const isEndBorder = (idx + 1) % nColumn === 0;
-  const isStartBorder = idx % nColumn === 0;
-  // console.log('getNeighborhoodFields:', { idx, nColumn, isEndBorder, isStartBorder });
+  const isEndBorder = (index + 1) % nColumn === 0;
+  const isStartBorder = index % nColumn === 0;
 
   const neighborhoodFields = [
     [-nColumn - 1, -nColumn, -nColumn + 1],
@@ -202,13 +201,14 @@ function getNeighborhoodIndices(fields, idx) {
 
       return [...acc, left, mid, right];
     }, [])
-    .map((offset) => offset + idx)
-    .reduce((acc, index) => {
-      const field = fields[index];
+    .map((offset) => {
+      return offset + index;
+    })
+    .filter((idx) => {
+      return idx >= 0 && idx < total;
+    });
 
-      return field ? acc.concat(index) : acc;
-    }, []);
-  // console.log('neighborhoodFields:', neighborhoodFields);
+  // console.log('index', index, 'neighborhoodFields:', neighborhoodFields);
 
   return neighborhoodFields;
 }
