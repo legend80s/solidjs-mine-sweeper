@@ -47,3 +47,52 @@ export function initGame({ level }) {
 function shuffle(arr) {
   return arr.sort(() => (Math.random() > 0.5 ? 1 : -1));
 }
+
+const cache = {}
+
+/**
+ * @param {{ index: number }} index
+ * @returns {number[]}
+ */
+export function getNeighborhoodIndices({ index }) {
+  if (cache[index]) {
+    // console.log('index', index, 'hit');
+
+    return cache[index];
+  }
+
+  const columnCount = nColumn();
+  const total = columnCount ** 2;
+
+  const isEndBorder = (index + 1) % columnCount === 0;
+  const isStartBorder = index % columnCount === 0;
+
+  const neighborhoodFields = [
+    [-columnCount - 1, -columnCount, -columnCount + 1],
+    [-1, 0, 1],
+    [columnCount - 1, columnCount, columnCount + 1],
+  ]
+    .reduce((acc, [left, mid, right]) => {
+      // rightmost
+      if (isEndBorder) {
+        return [...acc, left, mid];
+      }
+
+      // leftmost
+      if (isStartBorder) {
+        return [...acc, mid, right];
+      }
+
+      return [...acc, left, mid, right];
+    }, [])
+    .map((offset) => {
+      return offset + index;
+    })
+    .filter((idx) => {
+      return idx >= 0 && idx < total;
+    });
+
+  // console.log('index', index, 'neighborhoodFields:', neighborhoodFields, 'total', total);
+
+  return cache[index] = neighborhoodFields;
+}

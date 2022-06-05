@@ -1,7 +1,7 @@
 import { produce } from 'solid-js/store';
 import {
   boxes,
-  nColumn as getColumnCount,
+  getNeighborhoodIndices,
   setBoxes,
   setStatus,
   status,
@@ -62,7 +62,7 @@ function expandZeros({ boxes, index }) {
     // console.log('neighborhoodIndex:', neighborhoodIndex);
 
     if (box.isRevealed) {
-      // console.log('idx isRevealed', idx);
+      // console.log(neighborhoodIndex, 'isRevealed');
 
       return;
     }
@@ -170,45 +170,4 @@ function getNeighborhoodFields(fields, idx) {
   return getNeighborhoodIndices({ index: idx }).map((index) => {
     return fields[index];
   });
-}
-/**
- *
- * @param {{ index: number }} index
- * @returns {number[]}
- */
-function getNeighborhoodIndices({ index }) {
-  const nColumn = getColumnCount();
-  const total = nColumn ** nColumn;
-
-  const isEndBorder = (index + 1) % nColumn === 0;
-  const isStartBorder = index % nColumn === 0;
-
-  const neighborhoodFields = [
-    [-nColumn - 1, -nColumn, -nColumn + 1],
-    [-1, 0, 1],
-    [nColumn - 1, nColumn, nColumn + 1],
-  ]
-    .reduce((acc, [left, mid, right]) => {
-      // rightmost
-      if (isEndBorder) {
-        return [...acc, left, mid];
-      }
-
-      // leftmost
-      if (isStartBorder) {
-        return [...acc, mid, right];
-      }
-
-      return [...acc, left, mid, right];
-    }, [])
-    .map((offset) => {
-      return offset + index;
-    })
-    .filter((idx) => {
-      return idx >= 0 && idx < total;
-    });
-
-  // console.log('index', index, 'neighborhoodFields:', neighborhoodFields);
-
-  return neighborhoodFields;
 }
