@@ -1,5 +1,5 @@
 import { createSignal } from 'solid-js';
-import { createStore } from 'solid-js/store';
+import { createStore, produce } from 'solid-js/store';
 import { getItem, setItem } from './helper/storage';
 
 export const enum LevelEnum {
@@ -113,4 +113,18 @@ export function getNeighborhoodIndices({ index }: { index: number; }): number[] 
   // console.log('index', index, 'neighborhoodFields:', neighborhoodFields, 'total', total);
 
   return neighborhoodFields;
+}
+
+export function revealBox(box: IBox) {
+  setBoxes(
+    ({ id }) => box.id === id,
+    produce((box) => (box.isRevealed = true))
+  );
+}
+
+export function revealAllMines() {
+  setBoxes(
+    (box) => box.isMine,
+    produce((box) => (box.isRevealed = true))
+  );
 }

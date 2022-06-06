@@ -3,6 +3,8 @@ import {
   boxes,
   getNeighborhoodIndices,
   playing,
+  revealAllMines,
+  revealBox,
   setBoxes,
   setStatus,
 } from "../store";
@@ -81,17 +83,6 @@ function expandZeros({ boxes, index }) {
 }
 
 /**
- *
- * @param {typeof boxes[0]} box
- */
-function revealBox(box) {
-  setBoxes(
-    ({ id }) => box.id === id,
-    produce((box) => (box.isRevealed = true))
-  );
-}
-
-/**
  * @param {{ index: number }} params
  */
 function onFieldClick({ index }) {
@@ -107,16 +98,11 @@ function onFieldClick({ index }) {
 
   if (box.isMine) {
     setStatus("failed");
+    revealAllMines();
 
     setTimeout(() => {
       alert("You Lost 🤕❗️❗️❗️");
-    });
-
-    // revealAllMines();
-    setBoxes(
-      (box) => box.isMine,
-      produce((box) => (box.isRevealed = true))
-    );
+    }, 20);
 
     return;
   }
@@ -135,9 +121,11 @@ function onFieldClick({ index }) {
   if (boxes.filter((box) => !box.isMine).every((box) => box.isRevealed)) {
     setStatus("won");
 
+    revealAllMines();
+
     setTimeout(() => {
       alert("Congratulations! You Win 🎉🎉🎉.");
-    });
+    }, 20);
   }
 }
 
