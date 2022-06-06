@@ -9,6 +9,11 @@
     "build": "vite build",
     "serve": "vite preview"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/legend80s/solidjs-mine-sweeper.git"
+  },
+  "homepage": "https://mine-sweeper-solid-js.netlify.app/",
   "license": "MIT",
   "devDependencies": {
     "autoprefixer": "^10.4.7",

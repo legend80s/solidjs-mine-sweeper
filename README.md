@@ -2,6 +2,8 @@
 
 ❤️ Powered by **Solid.js**.
 
+Play it at [mine-sweeper-solid-js.netlify.app](https://mine-sweeper-solid-js.netlify.app/).
+
 ## Usage
 
 Those templates dependencies are maintained via [pnpm](https://pnpm.io) via `pnpm up -Lri`.
