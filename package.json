@@ -4,6 +4,7 @@
   "description": "",
   "scripts": {
     "start": "vite",
+    "postversion": "gp && gp --tags",
     "dev": "vite --host",
     "build": "vite build",
     "serve": "vite preview"
