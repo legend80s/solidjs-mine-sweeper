@@ -129,8 +129,6 @@ function onFieldClick({ index }) {
   if (boxes.filter((box) => !box.isMine).every((box) => box.isRevealed)) {
     setStatus("won");
 
-    revealAllMines();
-
     setTimeout(() => {
       alert("Congratulations! You Win 🎉🎉🎉.");
     }, 20);
