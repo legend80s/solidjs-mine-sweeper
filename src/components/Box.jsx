@@ -30,14 +30,22 @@ export function Box({ box, index }) {
       "cursor-default": !playing() || box().isRevealed,
       "border-slate-100": box().isRevealed,
       "bg-gray-500/20 border-slate-400/20": !box().isRevealed,
-      "hover:bg-gray-100/40": playing() && !box().isRevealed,
+      "transition duration-300 hover:bg-gray-100/40 hover:scale-110":
+        playing() && !box().isRevealed,
     };
   };
 
   return (
     <button
       classList={genDynamicClass()}
-      class="font-mono w-8 h-8 rounded text-center border"
+      class="
+        font-mono
+        w-8
+        h-8
+        rounded
+        text-center
+        border
+      "
       onClick={[onFieldClick, { index }]}
     >
       {!dev && !box().isRevealed
