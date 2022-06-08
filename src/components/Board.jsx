@@ -13,7 +13,7 @@ export function Board() {
 
   return (
     <ul
-      class="max-w-lg grid grid-cols-9 gap-x-0.5 gap-y-1"
+      class="grid grid-cols-9 gap-x-0.5 gap-y-1"
       classList={{ ["grid-cols-" + nColumn()]: true }}
       style={style()}
     >

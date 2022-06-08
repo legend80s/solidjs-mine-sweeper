@@ -7,6 +7,7 @@ import {
   revealBox,
   setBoxes,
   setStatus,
+  nColumn,
 } from "../store";
 
 const dev = false;
@@ -28,7 +29,7 @@ export function Box({ box, index }) {
     return {
       [`${colors[box().nNeighborhoodMines]}`]: true,
       "cursor-default": !playing() || box().isRevealed,
-      "border-slate-100": box().isRevealed,
+      "border-slate-200/80": box().isRevealed,
       "bg-gray-500/20 border-slate-400/20": !box().isRevealed,
       "transition duration-300 hover:bg-gray-100/40 hover:scale-110":
         playing() && !box().isRevealed,
@@ -37,11 +38,12 @@ export function Box({ box, index }) {
 
   return (
     <button
+      style={`width: ${(1 / nColumn()) * 100 * 0.9}vw; height: ${
+        (1 / nColumn()) * 100 * 0.9
+      }vw;`}
       classList={genDynamicClass()}
       class="
         font-mono
-        w-8
-        h-8
         rounded
         text-center
         border
