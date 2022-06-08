@@ -25,6 +25,12 @@ export const [status, setStatus] = createSignal('playing');
 
 export const [getLevel, setLevel] = createSignal<LevelEnum>(LAST_LEVEL);
 
+const config: Record<LevelEnum, { nColumn: number; nMine: number; }> = {
+  easy: { nColumn: 9, nMine: 9 },
+  medium: { nColumn: 12, nMine: 20 },
+  hard: { nColumn: 15, nMine: 50 },
+};
+
 export function isValidLevel(lvl: LevelEnum) {
   return ['easy', 'medium', 'hard'].includes(lvl);
 }
@@ -43,12 +49,6 @@ export const playing = () => status() === 'playing';
 
 export function initGame() {
   const level = getLevel();
-
-  const config: Record<LevelEnum, { nColumn: number; nMine: number; }> = {
-    easy: { nColumn: 9, nMine: 9 },
-    medium: { nColumn: 12, nMine: 20 },
-    hard: { nColumn: 15, nMine: 80 },
-  };
 
   const { nColumn, nMine } = config[level];
 
