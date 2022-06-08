@@ -4,11 +4,18 @@
     "node_modules",
   ],
   "compilerOptions": {
-    "moduleResolution": "Node",
-    "jsx": "preserve",
+    "strict": true,
     "allowJs": true,
     "checkJs": true,
-    "lib": ["esnext", "dom", "dom.iterable"],
-    "target": "esnext"
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "node",
+    "allowSyntheticDefaultImports": true,
+    "esModuleInterop": true,
+    "jsx": "preserve",
+    "jsxImportSource": "solid-js",
+    "types": ["vite/client"],
+    "noEmit": true,
+    "isolatedModules": true
   }
 }

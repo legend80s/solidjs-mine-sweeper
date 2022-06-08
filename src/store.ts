@@ -20,7 +20,7 @@ const LAST_LEVEL = getItem('level') || LevelEnum.EASY;
 // console.log('LAST_LEVEL:', LAST_LEVEL);
 
 export const [boxes, setBoxes] = createStore<IBox[]>([]);
-export const [nColumn, setNColumn] = createSignal<number>();
+export const [nColumn, setNColumn] = createSignal<number>(0);
 export const [status, setStatus] = createSignal('playing');
 
 export const [getLevel, setLevel] = createSignal<LevelEnum>(LAST_LEVEL);
