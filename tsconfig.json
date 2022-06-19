@@ -6,7 +6,7 @@
   "compilerOptions": {
     "strict": true,
     "allowJs": true,
-    "checkJs": true,
+    "checkJs": false,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",
