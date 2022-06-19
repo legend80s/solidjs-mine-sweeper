@@ -40,7 +40,7 @@ export function Box({ box, index }) {
     <button
       style={`width: ${(1 / nColumn()) * 100 * 0.9}vw; height: ${
         (1 / nColumn()) * 100 * 0.9
-      }vw;`}
+      }vw; max-width: 3rem;max-height: 3rem;`}
       classList={genDynamicClass()}
       class="
         font-mono
@@ -132,7 +132,7 @@ function onFieldClick({ index }) {
     setStatus("won");
 
     setTimeout(() => {
-      alert("Congratulations! You Win 🎉🎉🎉.");
+      alert("Congratulations! You Win 🎉");
     }, 20);
   }
 }
