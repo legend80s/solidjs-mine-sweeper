@@ -20,14 +20,26 @@ const m = `  <link rel="manifest" href="manifest.json" />`
 
 const ifp = 'dist/index.html'
 
-appendToHead(m, ifp)
+const script = `<script>
+  if ("serviceWorker" in navigator) {
+    window.addEventListener("load", () => {
+      navigator.serviceWorker.register("/sw.js").then((registration) => {
+        console.log("[PWA] Service Worker registered successfully with scope:", registration.scope);
+      }).catch((error) => {
+        console.error(error);
+      });
+    });
+  }
+</script>`
+
+appendToHead(m + '\n' + script, ifp)
 
 console.log(fp, 'and', ifp, 'done.');
 
-function appendToHead() {
+function appendToHead(newContent) {
   const content = fs.readFileSync(ifp, 'utf-8');
 
-  const updated = content.replace('</head>', `${m}\n</head>`);
+  const updated = content.replace('</head>', `${newContent}\n</head>`);
 
   fs.writeFileSync(ifp, updated)
 }
