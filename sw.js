@@ -19,12 +19,20 @@ self.addEventListener('install', e => {
 // Our service worker will intercept all fetch requests
 // and check if we have cached the file
 // if so it will serve the cached file
-// self.addEventListener('fetch', event => {
-//   event.respondWith(
-//     caches.open(cacheName)
-//       .then(cache => cache.match(event.request, { ignoreSearch: true }))
-//       .then(response => {
-//         return response || fetch(event.request);
-//       })
-//   );
-// });
+self.addEventListener('fetch', event => {
+  event.respondWith(
+    caches.open(cacheName)
+      .then(cache => cache.match(event.request, { ignoreSearch: true }))
+      .then(response => {
+        if (response) {
+          console.log('[PWA] cache hit:', event.request, response);
+
+          return response;
+        } else {
+          console.log('[PWA] cache missed:', event.request);
+
+          return fetch(event.request);
+        }
+      })
+  );
+});
