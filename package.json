@@ -7,7 +7,7 @@
     "postversion": "git push && git push --tags",
     "dev": "vite --host",
     "build": "vite build",
-    "postbuild": "cp src/assets/favicon.ico dist/assets && cp manifest.json dist && cp sw.js dist && node scripts/pwa-builder",
+    "postbuild": "cp src/assets/microsoft.png dist/assets && cp manifest.json dist && cp sw.js dist && node scripts/pwa-builder",
     "serve": "vite preview"
   },
   "repository": {
