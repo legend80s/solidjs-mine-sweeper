@@ -1,6 +1,6 @@
 const fs = require('fs');
+const path = require('path');
 const cp = require('child_process');
-
 
 const hashed = cp.execSync(`ls dist/assets/*.js dist/assets/*.css`).toString()
   .split(/\s/)
@@ -8,10 +8,12 @@ const hashed = cp.execSync(`ls dist/assets/*.js dist/assets/*.css`).toString()
   .map(x => `"${x.replace(/^dist/, '.')}"`)
   .join(', ')
 
-const str  =`function genHashedAssets() {
+const str  =`\n/** auto generated */\nfunction genHashedAssets() {
   return [${hashed}];
 }`;
 
-// console.log('str:', str);
+const fp = 'dist/sw.js';
 
-fs.appendFileSync('../sw.js', str)
+fs.appendFileSync(fp, str)
+
+console.log(`write to "${fp}":`, str);
