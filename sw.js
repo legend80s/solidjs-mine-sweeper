@@ -1,18 +1,22 @@
 const cacheName = 'MineSweeper';
 
 // Cache all the files to make a PWA
+const assets = [
+  './',
+  './index.html',
+  './manifest.json',
+  // './assets',
+  './assets/microsoft.png',
+].concat(genHashedAssets());
+
 self.addEventListener('install', e => {
   e.waitUntil(
     caches.open(cacheName).then(cache => {
-      // Our application only has two files here index.html and manifest.json
-      // but you can add more such as style.css as your app grows
-      return cache.addAll([
-        './',
-        './index.html',
-        './manifest.json',
-        './assets',
-        './assets/microsoft.png',
-      ].concat(genHashedAssets()));
+      console.log('[PWA] cache.addAll(assets):', assets);
+
+      return cache.addAll(assets);
+    }).catch(err => {
+      console.error('[PWA] cache.addAll(assets) failed:', assets, err);
     })
   );
 });
