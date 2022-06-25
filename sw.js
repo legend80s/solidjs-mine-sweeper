@@ -11,6 +11,7 @@ self.addEventListener('install', e => {
         './index.html',
         './manifest.json',
         './assets',
+        './assets/microsoft.png',
       ].concat(genHashedAssets()));
     })
   );

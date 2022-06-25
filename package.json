@@ -5,7 +5,7 @@
   "scripts": {
     "start": "vite",
     "postversion": "git push && git push --tags",
-    "dev": "vite --host",
+    "dev": "vite --host --https",
     "build": "vite build",
     "postbuild": "cp src/assets/microsoft.png dist/assets && cp manifest.json dist && cp sw.js dist && node scripts/pwa-builder",
     "serve": "vite preview"

@@ -1,5 +1,4 @@
 const fs = require('fs');
-const path = require('path');
 const cp = require('child_process');
 
 const hashed = cp.execSync(`ls dist/assets/*.js dist/assets/*.css`).toString()
